@@ -58,34 +58,36 @@
       border-radius: 12px;
       margin-bottom: 30px;
     }
-    code {
+    code, pre {
       background: rgba(0,0,0,0.4);
-      padding: 2px 6px;
+      padding: 6px;
       border-radius: 4px;
       font-family: monospace;
-    }
-    ul, ol {
-      padding-left: 20px;
+      color: #ffda77;
     }
     pre {
-      background: rgba(0,0,0,0.4);
+      display: block;
       padding: 10px;
       border-radius: 8px;
       overflow-x: auto;
+    }
+    ul, ol {
+      padding-left: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>RAW + JPG Sorter Utility</h1>
-    <form id="downloadForm">
+    <form action="YOUR_WEB_APP_URL_HERE" method="post" target="hidden_iframe" onsubmit="afterSubmit()">
       <h2>Get Your Free Tool</h2>
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="email" id="email" placeholder="Your Email" required>
-      <input type="tel" id="phone" placeholder="Your Phone" required>
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <input type="tel" name="phone" placeholder="Your Phone" required>
       <button type="submit">Download Now</button>
       <p style="font-size:14px; color:#ddd;">We’ll send occasional updates about new tools.</p>
     </form>
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
 
     <section>
       <h2>What This Tool Does</h2>
@@ -104,9 +106,9 @@
       <h2>How to Use It</h2>
       <ol>
         <li><b>Download the Tool</b> using the form above.</li>
-        <li><b>Unzip the File</b> to get <code>filter_raws.exe</code>.</li>
+        <li><b>Unzip the File</b> to get <code>filter_raws.bat</code>.</li>
         <li><b>Place It in Your Photo Folder</b> (the one with RAW + JPG files).</li>
-        <li><b>Run the Tool</b> by double-clicking the <code>filter_raws.exe</code> file.</li>
+        <li><b>Run the Tool</b> by double-clicking the <code>filter_raws.bat</code> file.</li>
         <li>A new folder called <code>matched_raws</code> will contain all the matched pairs.</li>
       </ol>
     </section>
@@ -115,14 +117,14 @@
       <h2>Example</h2>
       <p>If your folder has:</p>
       <pre>
-IMG_001.RAW
+IMG_001.CR2
 IMG_001.JPG
-IMG_002.RAW
+IMG_002.CR2
 IMG_003.JPG
       </pre>
       <p>After running the tool, <code>matched_raws</code> will contain:</p>
       <pre>
-IMG_001.RAW
+IMG_001.CR2
 IMG_001.JPG
       </pre>
       <p>The rest stay in the original folder.</p>
@@ -130,29 +132,12 @@ IMG_001.JPG
   </div>
 
   <script>
-    document.getElementById("downloadForm").addEventListener("submit", function(e){
-      e.preventDefault();
-
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const phone = document.getElementById("phone").value;
-
-      fetch("https://script.google.com/macros/s/AKfycby1ZRODzJAyE_eJ2YwvZDdOQlWI6NrsAabHIpPLfpudhAd2JrNgZqhaTl-pMpo6zte6/exec", {
-        method: "POST",
-        body: JSON.stringify({ name, email, phone }),
-        headers: { "Content-Type": "application/json" }
-      })
-      .then(res => res.text())
-      .then(res => {
-        if (res === "Success") {
-          alert("Thank you! Your download will start now.");
-          window.location.href = "YOUR_DOWNLOAD_LINK_HERE";
-        } else {
-          alert("Error: " + res);
-        }
-      })
-      .catch(err => alert("Something went wrong: " + err));
-    });
+    function afterSubmit() {
+      setTimeout(function(){
+        alert("Thank you! The download link has been sent to your email.\n\nRedirecting to download now...");
+        window.location.href = "YOUR_DOWNLOAD_LINK_HERE";
+      }, 1000);
+    }
   </script>
 </body>
 </html>
