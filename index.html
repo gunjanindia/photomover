@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAW + JPG Sorter Utility</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #ff9800;
+    }
+    form {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+    input {
+      width: 90%;
+      padding: 12px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      background: #ff9800;
+      border: none;
+      padding: 12px;
+      width: 95%;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      color: #fff;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #e68900;
+    }
+    section {
+      background: rgba(255,255,255,0.05);
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+    }
+    code {
+      background: rgba(0,0,0,0.4);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    ul, ol {
+      padding-left: 20px;
+    }
+    pre {
+      background: rgba(0,0,0,0.4);
+      padding: 10px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>RAW + JPG Sorter Utility</h1>
+    <form id="downloadForm">
+      <h2>Get Your Free Tool</h2>
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <input type="tel" id="phone" placeholder="Your Phone" required>
+      <button type="submit">Download Now</button>
+      <p style="font-size:14px; color:#ddd;">We’ll send occasional updates about new tools.</p>
+    </form>
+
+    <section>
+      <h2>What This Tool Does</h2>
+      <p>
+        Do you often end up with hundreds of RAW and JPG photos in the same folder?  
+        This utility helps you quickly organize them by:
+      </p>
+      <ul>
+        <li>Finding all <b>RAW files that have a matching JPG with the same name</b></li>
+        <li>Moving both the RAW and the JPG into a separate folder called <code>matched_raws</code></li>
+        <li>Saving you hours of manual sorting!</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>How to Use It</h2>
+      <ol>
+        <li><b>Download the Tool</b> using the form above.</li>
+        <li><b>Unzip the File</b> to get <code>filter_raws.exe</code>.</li>
+        <li><b>Place It in Your Photo Folder</b> (the one with RAW + JPG files).</li>
+        <li><b>Run the Tool</b> by double-clicking the <code>filter_raws.exe</code> file.</li>
+        <li>A new folder called <code>matched_raws</code> will contain all the matched pairs.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Example</h2>
+      <p>If your folder has:</p>
+      <pre>
+IMG_001.RAW
+IMG_001.JPG
+IMG_002.RAW
+IMG_003.JPG
+      </pre>
+      <p>After running the tool, <code>matched_raws</code> will contain:</p>
+      <pre>
+IMG_001.RAW
+IMG_001.JPG
+      </pre>
+      <p>The rest stay in the original folder.</p>
+    </section>
+  </div>
+
+  <script>
+    document.getElementById("downloadForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+
+      fetch("https://script.google.com/macros/s/AKfycby1ZRODzJAyE_eJ2YwvZDdOQlWI6NrsAabHIpPLfpudhAd2JrNgZqhaTl-pMpo6zte6/exec", {
+        method: "POST",
+        body: JSON.stringify({ name, email, phone }),
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(res => res.text())
+      .then(res => {
+        if (res === "Success") {
+          alert("Thank you! Your download will start now.");
+          window.location.href = "YOUR_DOWNLOAD_LINK_HERE";
+        } else {
+          alert("Error: " + res);
+        }
+      })
+      .catch(err => alert("Something went wrong: " + err));
+    });
+  </script>
+</body>
+</html>
